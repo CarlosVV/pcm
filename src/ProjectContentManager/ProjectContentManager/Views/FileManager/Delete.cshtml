@@ -1,0 +1,67 @@
+﻿@model ProjectContentManager.Models.ContentViewModel
+
+@{
+    ViewBag.Title = "File Manager | Create";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Subir archivos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
+            </li>
+            <li>
+                <a>Manejador de Archivos</a>
+            </li>
+            <li class="active">
+                <strong>Subir archivos</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Worker</h5>
+                </div>
+                <div class="ibox-content">
+                    <h4 class="text-danger">¿Seguro de eliminar el archivo?</h4>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Path)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Path)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Year)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Month)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Eliminar" class="btn btn-primary" />
+                            @Html.ActionLink("Regresar a Lista", "Files", new { id = Model.CategoryId }, new { @class = "btn btn-white" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
