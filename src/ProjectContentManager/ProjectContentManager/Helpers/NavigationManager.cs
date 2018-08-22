@@ -8,9 +8,9 @@ namespace ProjectContentManager
 {
     public static class NavigationManager
     {
-        private static ContentManagerModel db = new ContentManagerModel();
         public static NavigationViewModel GetNavigationCategories()
         {
+            var db = new ContentManagerModel();
             var firstLevelCategories = db.Categories.Where(m => m.Root == null).ToList();
             var menus = new NavigationViewModel();
             menus.Items = new List<NavigationItemViewModel>();

@@ -14,6 +14,12 @@ namespace ProjectContentManager.Models
         [DisplayName("Categoría")]
         public int? CategoryId { get; set; }
 
+        [DisplayName("Categoría")]
+        public int? SelectedCategoryId { get; set; }
+
+        [DisplayName("Categoría")]
+        public string CategoryName { get; set; }
+
         [DisplayName("Tipo de Archivo")]
         public int? ContentTypeId { get; set; }
 
@@ -42,5 +48,8 @@ namespace ProjectContentManager.Models
 
         [DisplayName("Tipos de Archivo")]
         public List<SelectListItem> ContentTypes { get; set; }
+
+        [DisplayName("Categoría")]
+        public List<SelectListItem> Categories { get; set; }
     }
 }

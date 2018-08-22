@@ -14,11 +14,15 @@ namespace ProjectContentManager.Controllers
         private ContentManagerModel db = new ContentManagerModel();
         public ActionResult Files(string id)
         {
-            var categorydId = int.Parse(id);
-            var model = new FilesViewModel
+            var categoryId = int.Parse(id);
+            var category = db.Categories.Find(categoryId);
+            var model = new FilesViewModel();
+            model = new FilesViewModel
             {
-                CategoryId = categorydId,
-                Files = db.Contents.Where(m => m.CategoryId == categorydId).ToList(),
+                CategoryId = categoryId,
+                CategoryName = category.Name,
+                Files = (category.Root == null) ? db.Contents.Where(m => m.Category.Root == categoryId).ToList() :
+                                                  db.Contents.Where(m => m.CategoryId == categoryId).ToList()
             };
 
             return View(model);
@@ -26,19 +30,27 @@ namespace ProjectContentManager.Controllers
 
         public ActionResult Create(string id)
         {
-            var categoryid = id;
+            var categoryId = int.Parse(id);
+            var category = db.Categories.Find(categoryId);
+
+
             var model = new ContentViewModel
             {
                 ContentTypes = db.ContentTypes.Select(m =>
                         new SelectListItem { Text = m.Name, Value = m.ContentTypeId.ToString() }).ToList(),
-                CategoryId = categoryid != null ? int.Parse(categoryid) : 1,
+                CategoryId = categoryId,
+                Category = category,
+                CategoryName = category.Name,
+                Categories = (category.Root == null) ? db.Categories.Where(m => m.Root == categoryId).Select(m =>
+                        new SelectListItem { Text = m.Name, Value = m.CategoryId.ToString() }).ToList() : null,
             };
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,ContentTypeId,Path,Comments,Month,Year")] ContentViewModel content)
+        public ActionResult Create([Bind(Include = "CategoryId,SelectedCategoryId,ContentTypeId,Path,Comments,Month,Year")] ContentViewModel content)
         {
             if (ModelState.IsValid)
             {
@@ -54,55 +66,6 @@ namespace ProjectContentManager.Controllers
             return View(content);
         }
 
-        private void UpdateFileContent(Models.Content contentModel)
-        {
-            if (Request.Files.Count > 0)
-            {
-                var file = Request.Files[0];
-
-                if (file != null && file.ContentLength > 0)
-                {
-                    byte[] fileData = null;
-                    using (var binaryReader = new BinaryReader(file.InputStream))
-                    {
-                        fileData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
-                    }
-                    contentModel.FileContent = fileData;
-                    contentModel.Path = file.FileName;
-                }
-            }
-        }
-
-        private Models.Content ConvertToModel(ContentViewModel content)
-        {
-            var contentModel = new Content
-            {
-                ContentId = content.ContentId == 0 ? GetNewContentId() : content.ContentId,
-                Path = content.Path,
-                CategoryId = content.CategoryId,
-                Comments = content.Comments,
-                Year = content.Year,
-                Month = content.Month,
-                ContentTypeId = content.ContentTypeId,
-                UploadDate = DateTime.Now
-            };
-            return contentModel;
-        }
-
-        private int GetNewContentId()
-        {
-            var obj = db.Contents.OrderByDescending(m => m.ContentId).FirstOrDefault();
-            var id = 0;
-            if (obj == null)
-            {
-                id = 1;
-            }
-            else
-            {
-                id = obj.ContentId + 1;
-            }
-            return id;
-        }
 
         public FileResult DownloadFile(string id)
         {
@@ -130,32 +93,22 @@ namespace ProjectContentManager.Controllers
                 return HttpNotFound();
             }
 
+            var category = db.Categories.Find(id);
+            if (category.Root == null)
+            {
+                category = content.Category;
+                categoryId = categoryId.Value;
+            }
+
             var contentViewModel = ConvertToViewModel(categoryId, content);
 
             return View(contentViewModel);
         }
 
-        private ContentViewModel ConvertToViewModel(int? categoryId, Models.Content content)
-        {
-            var contentViewModel = new ContentViewModel
-            {
-                ContentId = content.ContentId,
-                ContentTypeId = content.ContentTypeId,
-                Path = content.Path,
-                UploadDate = content.UploadDate,
-                Comments = content.Comments,
-                Year = content.Year,
-                Month = content.Month,
-                ContentTypes = db.ContentTypes.Select(m =>
-                       new SelectListItem { Text = m.Name, Value = m.ContentTypeId.ToString() }).ToList(),
-                CategoryId = categoryId
-            };
-            return contentViewModel;
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryId,ContentTypeId,Path,Comments,Month,Year")] ContentViewModel content)
+        [Route("FileManager/edit/{id}/{contentId}")]
+        public ActionResult Edit([Bind(Include = "CategoryId,ContentId,ContentTypeId,Path,Comments,Month,Year")] ContentViewModel content)
         {
             if (ModelState.IsValid)
             {
@@ -201,6 +154,87 @@ namespace ProjectContentManager.Controllers
             db.Contents.Remove(content);
             db.SaveChanges();
             return RedirectToAction("Files", new { id = categoryId });
+        }
+
+
+        private ContentViewModel ConvertToViewModel(int? categoryId, Models.Content content)
+        {
+            var contentViewModel = new ContentViewModel
+            {
+                CategoryName = content.Category.Name,
+                ContentId = content.ContentId,
+                ContentTypeId = content.ContentTypeId,
+                Path = content.Path,
+                UploadDate = content.UploadDate,
+                Comments = content.Comments,
+                Year = content.Year,
+                Month = content.Month,
+                ContentTypes = db.ContentTypes.Select(m =>
+                       new SelectListItem { Text = m.Name, Value = m.ContentTypeId.ToString() }).ToList(),
+                CategoryId = categoryId
+            };
+            return contentViewModel;
+        }
+
+        private void UpdateFileContent(Models.Content contentModel)
+        {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] fileData = null;
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        fileData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                    }
+                    contentModel.FileContent = fileData;
+                    contentModel.Path = file.FileName;
+                }
+            }
+        }
+
+        private Models.Content ConvertToModel(ContentViewModel content)
+        {
+            Content contentModel;
+            if (content.ContentId != 0)
+            {
+                contentModel = db.Contents.Find(content.ContentId);              
+            }
+            else
+            {
+                contentModel = new Content
+                {
+                    ContentId = content.ContentId == 0 ? GetNewContentId() : content.ContentId,
+                    CategoryId = content.SelectedCategoryId != null ? content.SelectedCategoryId : content.CategoryId,                  
+                };
+            }
+
+            contentModel.Path = content.Path;
+            contentModel.CategoryId = content.CategoryId;
+            contentModel.Comments = content.Comments;
+            contentModel.Year = content.Year;
+            contentModel.Month = content.Month;
+            contentModel.ContentTypeId = content.ContentTypeId;
+            contentModel.UploadDate = DateTime.Now;
+
+            return contentModel;
+        }
+
+        private int GetNewContentId()
+        {
+            var obj = db.Contents.OrderByDescending(m => m.ContentId).FirstOrDefault();
+            var id = 0;
+            if (obj == null)
+            {
+                id = 1;
+            }
+            else
+            {
+                id = obj.ContentId + 1;
+            }
+            return id;
         }
 
         protected override void Dispose(bool disposing)

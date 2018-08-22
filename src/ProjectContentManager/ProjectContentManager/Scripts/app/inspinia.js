@@ -228,6 +228,18 @@ $(document).ready(function () {
             $(".footer").addClass('fixed');
         }
     }
+
+    // Activar el Menu en Nivel 1 
+    $(".menu1").on("click", function () {       
+        var url = $(this).attr('href');
+        window.location.href = url;
+    });
+
+    // Hide or Show File to Edit 
+    $(".editFile").on("click", function () {
+        $("input:file").show();
+        $(".box-download-file").hide();
+    });
 });
 
 // check if browser support HTML5 local storage

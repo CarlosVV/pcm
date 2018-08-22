@@ -29,7 +29,7 @@
             <li class="@Html.IsSelected(controller: "FileManager")">
                 @foreach (var item in ProjectContentManager.NavigationManager.GetNavigationCategories().Items)
                 {
-                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label" data-i18n="nav.forms">@item.Name</span><span class="fa arrow"></span></a>
+                    <a href="@Url.Action("Files", "FileManager", new { id = item.Id})" class="menu1"><i class="fa fa-edit"></i> <span class="nav-label" data-i18n="nav.forms">@item.Name</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "FileManager", cssClass: "in")">
                         @foreach (var subitem in item.SubItems)
                         {

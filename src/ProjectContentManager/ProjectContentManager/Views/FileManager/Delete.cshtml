@@ -1,7 +1,7 @@
 ﻿@model ProjectContentManager.Models.ContentViewModel
 
 @{
-    ViewBag.Title = "File Manager | Create";
+    ViewBag.Title = "Manejador de Archivos | Eliminar";
 }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -9,13 +9,16 @@
         <h2>Subir archivos</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>
             </li>
             <li>
                 <a>Manejador de Archivos</a>
             </li>
+            <li>
+                <a>Eliminar archivo</a>
+            </li>
             <li class="active">
-                <strong>Subir archivos</strong>
+                <strong>@Model.CategoryName</strong>
             </li>
         </ol>
     </div>
@@ -34,6 +37,14 @@
                     <h4 class="text-danger">¿Seguro de eliminar el archivo?</h4>
                     <dl class="dl-horizontal">
                         <dt>
+                            @Html.DisplayNameFor(model => model.CategoryName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CategoryName)
+                        </dd>
+
+                        <dt>
                             @Html.DisplayNameFor(model => model.Path)
                         </dt>
 
@@ -43,6 +54,13 @@
 
                         <dt>
                             @Html.DisplayNameFor(model => model.Year)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Year)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Month)
                         </dt>
 
                         <dd>

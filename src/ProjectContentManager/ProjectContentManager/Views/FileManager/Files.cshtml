@@ -1,7 +1,7 @@
 ﻿@model ProjectContentManager.Models.FilesViewModel
 
 @{
-    ViewBag.Title = "FileManager";
+    ViewBag.Title = "ManejadorArchivos";
     var categoryId = Model.CategoryId;
 }
 
@@ -10,13 +10,16 @@
         <h2>Subir Archivo</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>
             </li>
             <li>
                 <a>Manejador de Archivo</a>
             </li>
+            <li>
+                <a>Subir archivos</a>
+            </li>
             <li class="active">
-                <strong>Subir archivos</strong>
+                <strong>@Model.CategoryName</strong>
             </li>
         </ol>
     </div>
@@ -31,13 +34,16 @@
                 <div class="ibox-title">
                     <h5>Lista de Archivos</h5>
                     <div class="ibox-tools">
-                        @Html.ActionLink("Crear nuevo", "Create", new {id = categoryId }, new { @class = "btn btn-primary btn-xs" })
+                        @Html.ActionLink("Crear nuevo", "Create", new { id = categoryId }, new { @class = "btn btn-primary btn-xs" })
                     </div>
                 </div>
                 <div class="ibox-content">
 
                     <table class="table table-striped">
                         <tr>
+                            <th>
+                                Categoría
+                            </th>
                             <th>
                                 Tipo
                             </th>
@@ -59,10 +65,16 @@
                             {
                                 <tr>
                                     <td>
+                                        @if (item.Category != null)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.Category.Name)
+                                        }
+                                    </td>
+                                    <td>
                                         @if (item.ContentType != null)
                                         {
                                             @Html.DisplayFor(modelItem => item.ContentType.Name)
-                                        }                                       
+                                        }
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.UploadDate)
