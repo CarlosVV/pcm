@@ -342,7 +342,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
-    <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
+    <None Include="Properties\PublishProfiles\PcmPublish.pubxml" />
     <Content Include="Images\a1.jpg" />
     <Content Include="Images\a2.jpg" />
     <Content Include="Images\a3.jpg" />
