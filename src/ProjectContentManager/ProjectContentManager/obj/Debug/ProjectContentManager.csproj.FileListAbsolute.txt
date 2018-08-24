@@ -69,6 +69,5 @@ G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectCont
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\pl\System.Web.WebPages.resources.dll
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\pl\System.Web.WebPages.Deployment.resources.dll
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\pl\System.Web.WebPages.Razor.resources.dll
-G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.csprojResolveAssemblyReference.cache
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.dll
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.pdb

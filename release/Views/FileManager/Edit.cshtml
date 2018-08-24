@@ -1,0 +1,130 @@
+﻿@model ProjectContentManager.Models.ContentViewModel
+
+@{
+    ViewBag.Title = "Manejador de Archivos | Modificar";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Subir archivos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>
+            </li>
+            <li>
+                <a>Manejador de Archivos</a>
+            </li>
+            <li>
+                <a>Modificar archivo</a>
+            </li>
+            <li class="active">
+                <strong>@Model.CategoryName</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>Modificar</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            @Html.ActionLink("Lista", "Files", new { id = Model.CategoryId })
+                        </li>
+                        <li class="active">
+                            <strong>Modificar</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-sm-8">
+                    <div class="title-action">
+                        @Html.ActionLink("Regresar a Lista", "Files", new { id = Model.CategoryId }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Modificar Archivo</h5>
+                            </div>
+                            <div class="ibox-content">
+
+                                @using (Html.BeginForm("Edit", "FileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.HiddenFor(model => model.CategoryId)
+                                    @Html.HiddenFor(model => model.ContentId)
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ContentTypeId, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.ContentTypeId, Model.ContentTypes, "--Seleccionar tipo de archivo--", new {@class="form-control"})
+                                                @Html.ValidationMessageFor(model => model.ContentTypeId)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Path, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10"> 
+                                                <span class="box-download-file">
+                                                    @Html.ActionLink("Descargar", "DownloadFile", new { id = Model.ContentId }, new { @class = "downloadFile" }) | <a href="#" class="editFile">Edit</a>
+                                                </span>                                               
+                                                <input type="file" name="file" class="form-control" required style="display:none" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Comments, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Comments)
+                                                @Html.ValidationMessageFor(model => model.Comments)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Month, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Month)
+                                                @Html.ValidationMessageFor(model => model.Month)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Year, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Year)
+                                                @Html.ValidationMessageFor(model => model.Year)
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Actualizar" class="btn btn-primary" />
+                                                @Html.ActionLink("Cancelar", "Files", new { id = Model.CategoryId }, new { @class = "btn btn-white" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
