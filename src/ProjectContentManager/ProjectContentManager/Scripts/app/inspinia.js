@@ -238,6 +238,7 @@ $(document).ready(function () {
     // Hide or Show File to Edit 
     $(".editFile").on("click", function () {
         $("input:file").show();
+        $("input:file").prop('required', true);
         $(".box-download-file").hide();
     });
 });

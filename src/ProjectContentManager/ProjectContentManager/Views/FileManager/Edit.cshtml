@@ -9,7 +9,7 @@
         <h2>Subir archivos</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>
+                <a href="@Url.Action("Index", "Home")">Inicio</a>
             </li>
             <li>
                 <a>Manejador de Archivos</a>
@@ -78,9 +78,9 @@
                                             @Html.LabelFor(model => model.Path, new { @class = "control-label col-md-2" })
                                             <div class="col-md-10"> 
                                                 <span class="box-download-file">
-                                                    @Html.ActionLink("Descargar", "DownloadFile", new { id = Model.ContentId }, new { @class = "downloadFile" }) | <a href="#" class="editFile">Edit</a>
+                                                    @Html.ActionLink("Descargar", "DownloadFile", new { id = Model.ContentId }, new { @class = "downloadFile" }) | <a href="#" class="editFile">Cambiar</a>
                                                 </span>                                               
-                                                <input type="file" name="file" class="form-control" required style="display:none" />
+                                                <input type="file" name="file" class="form-control" style="display:none" />
                                             </div>
                                         </div>
 
