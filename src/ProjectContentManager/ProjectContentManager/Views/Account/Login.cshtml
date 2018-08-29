@@ -4,59 +4,56 @@
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+
+            <h1 class="logo-name">IN+</h1>
+
+        </div>
+        <h3>Welcome to IN+</h3>
+        <p>
+            Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+        </p>
+        <p>Login in. To see it in action.</p>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @*<input type="email" class="form-control" placeholder="Username" required="">*@
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Username", @required = "", @type = "email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @*<input type="password" class="form-control" placeholder="Password" required="">*@
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @required = "" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+            <a href="#"><small>Forgot password?</small></a>
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Account")">Create an account</a>
+            @* Enable this once you have account confirmation enabled for password reset functionality
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>*@
+        }
+
+        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small> </p>
     </div>
 </div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
