@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+//using System.Web.Mvc;
 
 namespace ProjectContentManager.Models
 {
@@ -79,6 +81,35 @@ namespace ProjectContentManager.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public List<System.Web.Mvc.SelectListItem> Roles { get; set; }
+
+        public string RoleId { get; set; }
+
+        [Required]    
+        [DataType(DataType.Date)]
+        [Display(Name = "Fecha de nacimiento")]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Primer Nombre")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Primer Apellido")]
+        public string FirstLastName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Segundo Apellido")]
+        public string SecondLastName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Cargo")]
+        public string Position { get; set; }
     }
 
     public class ResetPasswordViewModel

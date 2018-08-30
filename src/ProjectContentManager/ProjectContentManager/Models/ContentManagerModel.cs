@@ -5,9 +5,9 @@ namespace ProjectContentManager.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ContentManagerModel : DbContext
+    public partial class ContentManagerModelContext : DbContext
     {
-        public ContentManagerModel()
+        public ContentManagerModelContext()
             : base("name=ContentManagerModel")
         {
         }

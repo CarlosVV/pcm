@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using ProjectContentManager.App_Start;
+using System.Web;
 using System.Web.Optimization;
 
 namespace ProjectContentManager
@@ -15,9 +16,9 @@ namespace ProjectContentManager
                       "~/Content/animate.css",
                       "~/Content/style.css"));
 
-            // Font Awesome icons
+            // Font Awesome icons  CssFixRewriteUrlTransform
             bundles.Add(new StyleBundle("~/font-awesome/css").Include(
-                      "~/fonts/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
+                      "~/fonts/font-awesome/css/font-awesome.min.css", new CssFixRewriteUrlTransform()));
 
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

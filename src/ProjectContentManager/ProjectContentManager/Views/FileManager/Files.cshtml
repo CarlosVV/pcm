@@ -45,13 +45,13 @@
                                 Categoría
                             </th>
                             <th>
-                                Tipo
-                            </th>
-                            <th>
-                                Fecha Subida
+                                Nombre o Título
                             </th>
                             <th>
                                 Año | Mes
+                            </th>
+                            <th>
+                                Observaciones o Comentarios
                             </th>
                             <th>
                                 Archivo
@@ -71,16 +71,13 @@
                                         }
                                     </td>
                                     <td>
-                                        @if (item.ContentType != null)
-                                        {
-                                            @Html.DisplayFor(modelItem => item.ContentType.Name)
-                                        }
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UploadDate)
+                                        @Html.DisplayFor(modelItem => item.Path)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Year) | @Html.DisplayFor(modelItem => item.Month)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Comments)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Descargar", "DownloadFile", new { id = item.ContentId })

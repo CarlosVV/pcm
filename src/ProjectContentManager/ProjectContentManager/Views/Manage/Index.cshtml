@@ -2,32 +2,30 @@
 @{
     ViewBag.Title = "Cuenta";
 }
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <h3>@ViewBag.Title.</h3>
 
-<h2>@ViewBag.Title.</h2>
-
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-
-    </dl>
+        <p class="text-success">@ViewBag.StatusMessage</p>
+        <div>
+            <h4>Cambiar la configuración de la cuenta</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>Password:</dt>
+                <dd>
+                    [
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Change your password", "ChangePassword")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Create", "SetPassword")
+                    }
+                    ]
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
+

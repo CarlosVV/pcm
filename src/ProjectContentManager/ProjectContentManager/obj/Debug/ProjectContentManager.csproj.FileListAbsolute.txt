@@ -104,4 +104,7 @@ G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectCont
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\System.Web.Http.Cors.xml
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\System.Web.Http.Owin.xml
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\bin\System.Web.Http.WebHost.xml
+G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.Migrations.InitialCreate.resources
+G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.csproj.GenerateResource.Cache
+G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.Migrations.AdditionalInformation.resources
 G:\proyectos\projectcontentmanager\git\pcm\src\ProjectContentManager\ProjectContentManager\obj\Debug\ProjectContentManager.csprojResolveAssemblyReference.cache

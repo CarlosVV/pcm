@@ -11,7 +11,7 @@ namespace ProjectContentManager.Controllers
 {
     public class FileManagerController : Controller
     {
-        private ContentManagerModel db = new ContentManagerModel();
+        private ContentManagerModelContext db = new ContentManagerModelContext();
         public ActionResult Files(string id)
         {
             var categoryId = int.Parse(id);

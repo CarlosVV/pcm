@@ -1,8 +1,14 @@
-﻿using ProjectContentManager.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web;
+using System.Web.Mvc;
+using ProjectContentManager.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 
 namespace ProjectContentManager
 {
@@ -10,7 +16,7 @@ namespace ProjectContentManager
     {
         public static NavigationViewModel GetNavigationCategories()
         {
-            var db = new ContentManagerModel();
+            var db = new ContentManagerModelContext();
             var firstLevelCategories = db.Categories.Where(m => m.Root == null).ToList();
             var menus = new NavigationViewModel();
             menus.Items = new List<NavigationItemViewModel>();
@@ -31,6 +37,15 @@ namespace ProjectContentManager
             }
 
             return menus;
+        }
+
+        public static ApplicationUser User
+        {
+            get
+            {
+                var user = ApplicationDbContext.Create().Users.Where(m => m.Email == HttpContext.Current.User.Identity.Name).FirstOrDefault();
+                return user;
+            }
         }
     }
 }

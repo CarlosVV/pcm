@@ -29,22 +29,13 @@
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="checkbox">
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        @Html.LabelFor(m => m.RememberMe)
-                    </div>
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
                 </div>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">Ingresar</button>
 
-            <a href="#"><small>Forgot password?</small></a>
-            <p class="text-muted text-center"><small>Do not have an account?</small></p>
-            <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Account")">Regístrese</a>
-            @* Enable this once you have account confirmation enabled for password reset functionality
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>*@
         }
 
         <p class="m-t"> <small>Sistema de Manejo de Contenidos de Proyectos &copy; 2018</small> </p>
@@ -52,5 +43,5 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/plugins/validate")
 }
